@@ -1,0 +1,163 @@
+﻿@model MachineApp.Models.ViewModels.ProductVM
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var title = "Skapa Produkt";
+}
+
+<form method="post" enctype="multipart/form-data">
+    <div class="row p-3 border">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        @if (Model.Product.Id != 0)
+        {
+            //edit
+            title = "Redigera kategori";
+            <input type="hidden" asp-for="Product.Id" />
+        }
+        <div class="col-12 border-bottom">
+            <h2 class="text-primary">@title</h2>
+        </div>
+        <div class="col-8 pt-4">
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="Product.Name"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Product.Name" class="form-control mb-2" />
+                    <span asp-validation-for="Product.Name" class="text-danger"></span>
+                </div>
+                <div class="col-1">
+                    <i class="far fa-question-circle" data-toggle="tooltip" title="Produktnamn  måste vara högst 50 bokstäver."></i>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="Product.Price"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Product.Price" class="form-control mb-2" />
+                    <span asp-validation-for="Product.Price" class="text-danger"></span>
+                </div>
+                <div class="col-1">
+                    <i class="far fa-question-circle" data-toggle="tooltip" title="Produktpris krävs, priset i svensk valuta."></i>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="Product.ShortDesc"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Product.ShortDesc" class="form-control mb-2" />
+                    <span asp-validation-for="Product.ShortDesc" class="text-danger"></span>
+                </div>
+                <div class="col-1">
+                    <i class="far fa-question-circle" data-toggle="tooltip" title="Skriv gärna grund information om produkt"></i>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="Product.Description"></label>
+                </div>
+                <div class="col-8">
+                    <textarea asp-for="Product.Description" class="form-control mb-2"></textarea>
+                    <span asp-validation-for="Product.Description" class="text-danger"></span>
+                </div>
+                <div class="col-1">
+                    <i class="far fa-question-circle" data-toggle="tooltip" title="Skriv gärna detaljerad information om produkt"></i>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-3">
+                    Kategori
+                </div>
+                <div class="col-8">
+                    @Html.DropDownListFor(m => m.Product.CategoryId, Model.CategoryList, "-Välj en kategori för produkten",
+                  new { @class = "form-control mb-2" })
+                    <span asp-validation-for="Product.CategoryId" class="text-danger"></span>
+                </div>
+                <div class="col-1">
+                    <i class="far fa-question-circle" data-toggle="tooltip" title="Valj gärna kategori som produkt tillhör"></i>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-3">
+                    Typ
+                </div>
+                <div class="col-8">
+                    @Html.DropDownListFor(m => m.Product.ApplicationTypeId, Model.ApplicationTypeList, "-Välj en typ för produkten",
+                   new { @class = "form-control mb-2" })
+                    <span asp-validation-for="Product.ApplicationTypeId" class="text-danger"></span>
+                </div>
+                <div class="col-1">
+                    <i class="far fa-question-circle" data-toggle="tooltip" title="Valj gärna typ som produkt tillhör"></i>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-3">
+                    Produkt bild
+                </div>
+                <div class="col-8">
+
+                    <input type="file" name="files" id="uploadBox" multiple class="form-control mb-2" />
+
+                </div>
+                <div class="col-1">
+                    <i class="far fa-question-circle" data-toggle="tooltip" title="lägga till en bild för produkten"></i>
+                </div>
+            </div>
+
+            <div class="form-group row mt-3">
+                <div class="col-8 offset-3">
+                    @if (Model.Product.Id != 0)
+                    {
+                        <partial name="_EditAndBackToListButton" model="Model.Product.Id" />
+                    }
+                    else
+                    {
+                        <div class="row">
+                            <div class="col">
+                                <button type="submit" onclick="return validateInput()" class="btn btn-primary form-control">Skapa</button>
+                            </div>
+                            <div class="col">
+                                <a asp-action="Index" class="btn btn-success form-control">Tillbaka till listan </a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+        @if (Model.Product.Id != 0)
+        {
+            <div class="col-3 offset-1 pt-4">
+                <img src="@Model.Product.ImageUrl" style="border-radius:5px; border:1px solid #bbb9b9; width: 100%" />
+            </div>
+        }
+
+    </div>
+</form>
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+
+    <script src="https://cdn.tiny.cloud/1/qozuqxzk5l8s8omi6nh33dojbww7dwd9xybxnwlhug0y1z0p/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+            selector: 'textarea',
+            plugins: 'lists',
+            menubar: 'file edit format',
+            language: 'sv_SE'
+        });
+        function validateInput() {
+            if (document.getElementById("uploadBox").value == "") {
+                swal("Fel", "Välj en bild för produkten", "Fel");
+                return false;
+            }
+            return true;
+        };
+    </script>
+}
+

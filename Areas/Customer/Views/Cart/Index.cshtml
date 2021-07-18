@@ -1,0 +1,119 @@
+﻿@model MachineApp.Models.ViewModels.ShoppingCartVM
+
+<div class="container">
+    <form method="post">
+        <br />
+        @if (Model.ListCart.Count() > 0)
+        {
+            <div class="backgroundWhiteBorder">
+                <div class="container">
+                    <div class=" row">
+                        <div class="col-sm-12">
+                            <div class="card container" style="width:100%">
+                                <div class="card-header bg-dark text-light  row ">
+                                    <div class="col-4 text-nowrap">
+                                        <i class="fa fa-shopping-cart"></i> &nbsp;
+                                        Kundvagn
+                                    </div>
+                                    <div class="col-8  text-end text-nowrap">
+                                        <a asp-area="Customer" asp-action="Index" asp-controller="Home" class="btn btn-outline-info btn-sm">Fortsätt handla</a>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class=" d-none d-lg-block">
+                                        <div class="row" style="color:#821f3d">
+                                            <div class="col-lg-2">
+                                            </div>
+                                            <div class="col-12 col-lg-3 text-start">
+                                                Produktnamn
+                                            </div>
+                                            <div class="col-12 col-lg-2 text-center">
+                                                Pris
+                                            </div>
+                                            <div class="col-6 col-lg-2 text-center">
+                                                Antal
+                                            </div>
+                                            <div class="col-6 col-lg-2 text-center">
+                                                Totalbelopp
+                                            </div>
+                                            <div class="col-6 col-sm-4 col-lg-1 text-center">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    @foreach (var item in Model.ListCart)
+                                    {
+                                        <div class="row h-100">
+                                            <div class="col-4 col-md-2 text-center py-2">
+                                                <img src="@item.Product.ImageUrl" class="rounded" style="width:100%" />
+                                            </div>
+                                            <div class="col-8 col-lg-3 pt-lg-5 text-start text-nowrap">
+                                                <h5>@item.Product.Name</h5>
+
+                                            </div>
+                                            <div class="col-3 col-lg-2 pt-lg-5 text-start text-nowrap">
+                                                <h5> @item.Price.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("sv-SE"))</h5>
+
+                                            </div>
+                                            <div class="col-4 col-lg-2  text-start text-nowrap" style="padding-top:3%">
+                                                <a asp-action="minus" asp-route-cartId="@item.Id" class="btn btn-secondary">
+                                                    <i class="fas fa-minus"></i>
+                                                </a>
+
+                                                <span class="h5"> @item.Count </span>
+
+                                                <a asp-action="Plus" asp-route-cartId="@item.Id" class="btn btn-secondary">
+                                                    <i class="fas fa-plus "></i>
+                                                </a>
+                                            </div>
+                                            <div class="col-3 col-lg-2 pt-lg-5 text-start text-nowrap">
+                                                <h5> @((item.Price * item.Count).ToString("C", System.Globalization.CultureInfo.GetCultureInfo("sv-SE")))</h5>
+                                            </div>
+                                            <div class="col-2 col-lg-1 p-0 pt-lg-4 text-center text-nowrap">
+                                                <a asp-action="remove" asp-route-cartId="@item.Id" class="btn btn-danger">
+                                                    <i class="fas fa-trash"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <hr />
+                                    }
+                                    <div class="row">
+                                        <div class="col-12 col-md-6 offset-md-6 col-lg-4 offset-lg-8 pr-4 text-nowrap">
+                                            <ul class="list-group">
+                                                <li class="list-group-item d-flex justify-content-between bg-light text-nowrap">
+                                                    <span class="text-info"> Total (SEK)</span>
+                                                    <strong class="text-info"> <span id="txtOrderTotal">@Model.OrderHeader.OrderTotal.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("sv-SE"))</span></strong>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card-footer">
+                                    <div class="card-footer row">
+                                        @if (!Model.OrderHeader.ApplicationUser.EmailConfirmed)
+                                        {
+
+                                            <div class=" col-sm-12 col-lg-4 col-md-6 offset-lg-8 offset-md-6 ">
+                                                <button type="submit" class="btn btn-danger   fw-bolder">
+                                                    Klicka här för att skicka bekräftelse via e-post igen!
+                                                </button>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="col-sm-12 col-lg-4 col-md-6 offset-lg-8 offset-md-6 ">
+
+                                                <a asp-area="Customer" asp-controller="Cart" asp-action="Summary" class="btn btn-success form-control">Ordersammanfattning</a>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        </form>
+</div>

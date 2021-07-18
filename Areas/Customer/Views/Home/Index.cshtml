@@ -1,0 +1,49 @@
+﻿@model MachineApp.Models.ViewModels.HomeVM
+
+<div class="container">
+    <div class="text-center">
+        <h1 class="text-success">WELCOME TO <span style="font-weight:bold; font-family:'Copperplate Gothic'; color:blue">RS MACHINE</span></h1>
+        <h3>YOU CAN CHOOSE YOUR MACHINE AND WE CONTACT YOU AS SOON AS POSSIBLE</h3>
+        <h5>
+            Read more about how you can send your request here <a asp-action="Index" asp-controller="About"> terms of use </a>
+        </h5>
+    </div>
+    <br />
+    <div class="text-center">
+        <button class="btn btn-primary filter-button" data-filter="all">Alla</button>
+        @foreach (var obj in Model.Categories)
+        {
+            <button class="btn btn-outline-primary filter-button" data-filter="@obj.Name.Replace(' ','_')">@obj.Name</button>
+        }
+    </div>
+    <br />
+    <div class="row pb-3 backgroundWhite">
+        @foreach (var prod in Model.Products)
+        {
+            <partial name="_IndividualProductCard" model="prod" />
+        }
+    </div>
+</div>
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $(".filter-button").click(function () {
+                var value = $(this).attr('data-filter');
+                if (value == "all") {
+                    $('.filter').show('1000');
+                }
+                else {
+                    $(".filter").not('.' + value).hide('3000');
+                    $('.filter').filter('.' + value).show('3000');
+                }
+            });
+        });
+    </script>
+}
+
+
+
+
+
+
+

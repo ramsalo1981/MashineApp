@@ -1,0 +1,81 @@
+﻿@model MachineApp.Models.ShoppingCart
+@using MachineApp.Utility
+
+
+
+<div class="container">
+    <form method="post">
+        <input asp-for="ProductId" hidden />
+        <div class="container backgroundWhite pt-4">
+            <div class="card text-white bg-primary mb-3">
+                <div class="card-header ml-0 row container" style="border-radius: 1px;">
+                    <div class="col-12 col-md-6" data-toggle="tooltip" title="Kategorinamn" style="cursor:help;">
+                        <h1 class="text-white">@Model.Product.Category.Name</h1>
+                    </div>
+                    <div class="col-12 col-md-6 text-md-end" data-toggle="tooltip" title="Typnamn" style="cursor:help;">
+                        <h1 class="text-warning"> @Model.Product.ApplicationType.Name</h1>
+                    </div>
+                </div>
+                <div class="card-body bg-body">
+                    <div class="container rounded p-2">
+                        <div class="row">
+                            <div class="col-12 col-lg-4 p-1 text-center ">
+                                <img src="@Model.Product.ImageUrl" style="width:100%" class="rounded" />
+                            </div>
+                            <div class="col-12 col-lg-8">
+                                <div class="row pl-3">
+                                    <div class="col-12 text-dark">
+
+                                        <div class="row ">
+                                            <div class="col-4 col-md-6 text-nowrap border " data-toggle="tooltip" title="Produktnamn" style="cursor:help;width:50%">
+                                                <h3 class=" card-title text-success text-start " >@Model.Product.Name</h3>
+                                            </div>
+                                            <div class="col-8 col-md-6 text-nowrap border " data-toggle="tooltip" title="Produktpris" style="cursor: help; ">
+                                                <h3 class="card-title text-danger text-end " > @Model.Product.Price.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("sv-SE"))</h3>
+                                            </div>
+                                        </div>
+                                        <h3 class="text-success mt-2"></h3>
+                                        <p class=" text-secondary" data-toggle="tooltip" title="Description">@Html.Raw(Model.Product.Description)</p>
+
+
+
+                                    </div>
+                                    <div class="col-11">
+                                        <h4 class="card-title text-dark">Antal</h4>
+                                    </div>
+                                    <div class="col-1">
+                                        <i class="far fa-question-circle text-dark" data-toggle="tooltip" title="Ange antalet produkter du vill handla"></i>
+                                    </div>
+                                    <div class="col-12">
+                                        <input asp-for="Count" class="form-control" />
+                                        <span asp-validation-for="Count" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-dark ">
+                        <div class="row">
+                            <div class="col-12 col-md-6 d-grid gap-2 ">
+                                <a asp-action="Index" class="btn btn-success ">Tillbaka till listan</a>
+
+                            </div>
+                            <div class="col-12 col-md-6 d-grid gap-2 ">
+                                <button type="submit" value="Add to Cart" class="btn btn-info  ">Lägg i kundvagn</button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+}

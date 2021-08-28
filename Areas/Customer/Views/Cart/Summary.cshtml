@@ -32,7 +32,7 @@
                                         <label>Namn</label>
                                     </div>
                                     <div class="col-9">
-                                        <input asp-for="OrderHeader.Name" type="text" class="form-control" />
+                                        <input asp-for="OrderHeader.Name" id="name" type="text" class="form-control" />
                                         <span asp-validation-for="OrderHeader.Name" class="text-danger"></span>
                                     </div>
                                 </div>
@@ -41,7 +41,7 @@
                                         <label>Telefon</label>
                                     </div>
                                     <div class="col-9">
-                                        <input asp-for="OrderHeader.PhoneNumber" type="text" class="form-control" />
+                                        <input asp-for="OrderHeader.PhoneNumber" id="phoneNumber" type="text" class="form-control" />
                                         <span asp-validation-for="OrderHeader.PhoneNumber" class="text-danger"></span>
                                     </div>
                                 </div>
@@ -50,7 +50,7 @@
                                         <label>Gatuadress</label>
                                     </div>
                                     <div class="col-9">
-                                        <input asp-for="OrderHeader.StreetAddress" type="text" class="form-control" />
+                                        <input asp-for="OrderHeader.StreetAddress" id="streetAddress" type="text" class="form-control" />
                                         <span asp-validation-for="OrderHeader.StreetAddress" class="text-danger"></span>
                                     </div>
                                 </div>
@@ -59,7 +59,7 @@
                                         <label>Postnummer</label>
                                     </div>
                                     <div class="col-9">
-                                        <input asp-for="OrderHeader.PostalCode" type="text" class="form-control" />
+                                        <input asp-for="OrderHeader.PostalCode" id="postalCode" type="text" class="form-control" />
                                         <span asp-validation-for="OrderHeader.PostalCode" class="text-danger"></span>
                                     </div>
                                 </div>
@@ -68,7 +68,7 @@
                                         <label>Stad</label>
                                     </div>
                                     <div class="col-9">
-                                        <input asp-for="OrderHeader.City" type="text" class="form-control" />
+                                        <input asp-for="OrderHeader.City" id="city" type="text" class="form-control" />
                                         <span asp-validation-for="OrderHeader.City" class="text-danger"></span>
                                     </div>
                                 </div>
@@ -102,7 +102,7 @@
                 <div class="card-footer">
                     <div class="row">
                         <div class="col-12 col-md-8 pt-2">
-                            <p style="color:maroon; font-size:14px;">Förväntat ankomstdatum: @DateTime.Now.AddDays(7).ToShortDateString() - @DateTime.Now.AddDays(14).ToShortDateString()</p>
+                            <p style="color:maroon; font-size:14px;">Förväntat ankomstdatum: @DateTime.Now.AddDays(7).ToString("yyyy-MM-dd ", System.Globalization.CultureInfo.GetCultureInfo("sv-SE")) - @DateTime.Now.AddDays(14).ToString("yyyy-MM-dd ", System.Globalization.CultureInfo.GetCultureInfo("sv-SE"))</p>
                         </div>
                         <div class="col-12 col-md-4">
 
@@ -110,7 +110,7 @@
                                 var OrderTotalForStripe = Model.OrderHeader.OrderTotal * 100;
                             }
 
-                            <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                            <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" 
                                     data-key="@Stripe.Value.PublishableKey"
                                     data-amount="@OrderTotalForStripe"
                                     data-name="Machine App"
@@ -119,14 +119,17 @@
                                     data-locale="auto"
                                     data-currency="SEK"
                                     data-allow-remember-me="false"
+                                    data-email="@Model.OrderHeader.ApplicationUser.Email"
+                                    
                                     data-image="https://stripe.com/img/documentation/checkout/marketplace.png">
                             </script>
 
                             <script>
                                 document.getElementsByClassName("stripe-button-el")[0].style.display = 'none';
+                                
                             </script>
 
-                            <button type="submit" value="Place Order" class="btn btn-success form-control">Beställa</button>
+                            <button type="submit" value="Place Order" class="btn btn-success form-control" onclick="return validateInput()" >Beställa</button>
 
 
 
@@ -140,5 +143,40 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script>
+        function validateInput() {
+            var nam = document.getElementById("name").value;
+            var phone = document.getElementById("phoneNumber").value;
+            var street = document.getElementById("streetAddress").value;
+            var post = document.getElementById("postalCode").value;
+            var ci = document.getElementById("city").value;
+            if (nam.toString() == '') {
+                swal("Fel", "Ange namn", "error")
+                return false;
+            }
+            
+            if (phone.toString() == '') {
+                swal("Fel", "Ange telefonnummer", "error")
+                    return false;
+            }
+            if (street.toString() == '') {
+                swal("Fel", "Ange gatuadress", "error")
+                return false;
+            }
+            if (post.toString() == '') {
+                swal("Fel", "Ange postnummer", "error")
+                return false;
+            }
+            if (ci.toString() == '') {
+                swal("Fel", "Ange stad", "error")
+                return false;
+            }
+                
+                    return true;
+                
+            
+        }
+        
+    </script>
 }
 

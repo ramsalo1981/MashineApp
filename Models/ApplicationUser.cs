@@ -10,7 +10,7 @@ namespace MachineApp.Models
 {
     public class ApplicationUser : IdentityUser
     {
-        [Required(ErrorMessage = "Fältet för produktnamn krävs")]
+        [Required(ErrorMessage = "Fältet för namn krävs")]
         [Display(Name = "Namn")]
         [MaxLength(50)]
         public string Name { get; set; }
@@ -19,10 +19,12 @@ namespace MachineApp.Models
         [Display(Name = "Gatuadress")]
         [MaxLength(50)]
         public string StreetAddress { get; set; }
+
         [Required(ErrorMessage = "Fältet för Postnummer krävs")]
         [Display(Name = "Postnummer")]
         [MaxLength(50)]
         public string PostalCode { get; set; }
+
         [Required(ErrorMessage = "Fältet för Stad krävs")]
         [Display(Name = "Stad")]
         [MaxLength(50)]

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
@@ -74,7 +75,8 @@ namespace MachineApp.Areas.Identity.Pages.Account
             [Display(Name = "Bekräfta lösenord")]
             [Compare("Password", ErrorMessage = "Lösenordet och bekräftelselösenordet matchar inte.")]
             public string ConfirmPassword { get; set; }
-            [Required(ErrorMessage = "Fältet för produktnamn krävs")]
+
+            [Required(ErrorMessage = "Fältet för namn krävs")]
             [Display(Name = "Namn")]
             [MaxLength(50)]
             public string Name { get; set; }
@@ -95,12 +97,18 @@ namespace MachineApp.Areas.Identity.Pages.Account
             [Required(ErrorMessage = "Fältet för telefonnummer krävs")]
             [Display(Name = "Telefonnummer")]
             [MaxLength(10)]
+            [Phone]
             public string PhoneNumber { get; set; }
             //public int? CompanyId { get; set; }
 
+            //[Required(ErrorMessage = "Fältet för roll krävs")]
+            
+            [Display(Name = "Roll")]
+            
             public string Role { get; set; }
 
             //public IEnumerable<SelectListItem> CompanyList { get; set; }
+
             public IEnumerable<SelectListItem> RoleList { get; set; }
         }
 
@@ -112,10 +120,11 @@ namespace MachineApp.Areas.Identity.Pages.Account
             //    await _roleManager.CreateAsync(new IdentityRole(SD.Role_User_Indi));
             //}
             ReturnUrl = returnUrl;
+
             Input = new InputModel()
             {
 
-                RoleList = _roleManager.Roles.Where(u => u.Name != SD.Role_User_Indi).Select(x => x.Name).Select(i => new SelectListItem
+                RoleList = _roleManager.Roles.Where(u => u.Name == SD.Role_User_Indi || u.Name == SD.Role_Admin).Select(x => x.Name).Select(i => new SelectListItem
                 {
                     Text = i,
                     Value = i
@@ -147,30 +156,11 @@ namespace MachineApp.Areas.Identity.Pages.Account
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
-                    //if (User.IsInRole(SD.Role_Admin))
-                    //{
-                    //    //an admin has logged in and they try to create a new user
-                    //    await _userManager.AddToRoleAsync(user, SD.Role_Admin);
-                    //}
-                    //else
-                    //{
-                    //    await _userManager.AddToRoleAsync(user, SD.Role_User_Indi);
-                    //}
+                    
 
                     _logger.LogInformation("Användaren skapade ett nytt konto med lösenord.");
 
-                    if (!await _roleManager.RoleExistsAsync(SD.Role_Admin))
-                    {
-                        await _roleManager.CreateAsync(new IdentityRole(SD.Role_Admin));
-                    }
-                    //if (!await _roleManager.RoleExistsAsync(SD.Role_User_Comp))
-                    //{
-                    //    await _roleManager.CreateAsync(new IdentityRole(SD.Role_User_Comp));
-                    //}
-                    if (!await _roleManager.RoleExistsAsync(SD.Role_User_Indi))
-                    {
-                        await _roleManager.CreateAsync(new IdentityRole(SD.Role_User_Indi));
-                    }
+                  
                     if (user.Role == null)
                     {
                         await _userManager.AddToRoleAsync(user, SD.Role_User_Indi);
@@ -188,8 +178,37 @@ namespace MachineApp.Areas.Identity.Pages.Account
                         values: new { area = "Identity", userId = user.Id, code = code, returnUrl = returnUrl },
                         protocol: Request.Scheme);
 
+                    //var PathToFile = _hostEnvironment.WebRootPath + Path.DirectorySeparatorChar.ToString()
+                    //    + "Templates" + Path.DirectorySeparatorChar.ToString() + "EmailTemplates"
+                    //    + Path.DirectorySeparatorChar.ToString() + "Confirm_Account_Registration.html";
+
+                    //var subject = "Bekräfta konto registrering";
+                    //string HtmlBody = "";
+                    //using (StreamReader streamReader = System.IO.File.OpenText(PathToFile))
+                    //{
+                    //    HtmlBody = streamReader.ReadToEnd();
+                    //}
+
+                    ////{0} : Subject  
+                    ////{1} : DateTime  
+                    ////{2} : Name  
+                    ////{3} : Email  
+                    ////{4} : Message  
+                    ////{5} : callbackURL  
+
+                    //string Message = $"Bekräfta ditt konto genom att<a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>klicka här</a>.";
+
+                    //string messageBody = string.Format(HtmlBody,
+                    //    subject,
+                    //    String.Format("{0:dddd, d MMMM yyyy}", DateTime.Now),
+                    //    user.Name,
+                    //    user.Email,
+                    //    Message,
+                    //    callbackUrl
+                    //    );
+
                     await _emailSender.SendEmailAsync(Input.Email, "Bekräfta din E-Post",
-                        $"Bekräfta ditt konto genom att<a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>klicka här</a>.");
+                        $"Bekräfta ditt konto genom att <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>klicka här</a>."); 
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {

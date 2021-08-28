@@ -25,7 +25,7 @@ namespace MachineApp.Areas.Admin.Controllers
             return View();
         }
 
-        public IActionResult Upsert(int? id)
+        public async Task<IActionResult> Upsert(int? id)
         {
             Category category = new Category();
             if (id == null)
@@ -34,7 +34,7 @@ namespace MachineApp.Areas.Admin.Controllers
                 return View(category);
             }
             //this is for edit
-            category = _unitOfWork.Category.Get(id.GetValueOrDefault());
+            category = await _unitOfWork.Category.GetAsync(id.GetValueOrDefault());
             if (category == null)
             {
                 return NotFound();
@@ -45,13 +45,13 @@ namespace MachineApp.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Upsert(Category category)
+        public async Task<IActionResult> Upsert(Category category)
         {
             if (ModelState.IsValid)
             {
                 if (category.Id == 0)
                 {
-                    _unitOfWork.Category.Add(category);
+                   await _unitOfWork.Category.AddAsync(category);
 
                 }
                 else
@@ -68,23 +68,23 @@ namespace MachineApp.Areas.Admin.Controllers
         #region API CALLS
 
         [HttpGet]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            var allObj = _unitOfWork.Category.GetAll();
+            var allObj = await _unitOfWork.Category.GetAllAsync();
             return Json(new { data = allObj });
         }
 
         [HttpDelete]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var objFromDb = _unitOfWork.Category.Get(id);
+            var objFromDb = await _unitOfWork.Category.GetAsync(id);
             if (objFromDb == null)
             {
                 //TempData["Error"] = "Error deleting Category";
                 return Json(new { success = false, message = "Fel vid radering" });
             }
 
-            _unitOfWork.Category.Remove(objFromDb);
+            await _unitOfWork.Category.RemoveAsync(objFromDb);
             _unitOfWork.Save();
 
             //TempData["Success"] = "Category successfully deleted";

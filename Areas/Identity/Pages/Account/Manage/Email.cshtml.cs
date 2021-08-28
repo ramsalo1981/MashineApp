@@ -28,9 +28,9 @@ namespace MachineApp.Areas.Identity.Pages.Account.Manage
             _signInManager = signInManager;
             _emailSender = emailSender;
         }
-
+        
         public string Username { get; set; }
-
+        [Display(Name = "E-Post")]
         public string Email { get; set; }
 
         public bool IsEmailConfirmed { get; set; }
@@ -45,7 +45,7 @@ namespace MachineApp.Areas.Identity.Pages.Account.Manage
         {
             [Required]
             [EmailAddress]
-            [Display(Name = "New email")]
+            [Display(Name = "Ny E-Post")]
             public string NewEmail { get; set; }
         }
 

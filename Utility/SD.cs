@@ -13,23 +13,24 @@ namespace MachineApp.Utility
         public const string Proc_ApplicationType_Update = "usp_UpdateApplicationType";
         public const string Proc_ApplicationType_Delete = "usp_DeleteApplicationType";
 
-        public const string Role_User_Indi = "Individual Customer";
+        public const string Role_User_Indi = "Användare";
         //public const string Role_User_Comp = "Company Customer";
         public const string Role_Admin = "Admin";
+        //public const string Role_Employee = "Anställd";
 
         public const string ssShoppingCart = "Shoping Cart Session";
 
-        public const string StatusPending = "Pending";
-        public const string StatusApproved = "Approved";
-        public const string StatusInProcess = "Processing";
-        public const string StatusShipped = "Shipped";
-        public const string StatusCancelled = "Cancelled";
-        public const string StatusRefunded = "Refunded";
+        public const string StatusPending = "Kontrolleras";
+        public const string StatusApproved = "Godkänd";
+        public const string StatusInProcess = "Pågår";
+        public const string StatusShipped = "Skickad";
+        public const string StatusCancelled = "Avbruten";
+        public const string StatusRefunded = "Återbetalat";
 
-        public const string PaymentStatusPending = "Pending";
-        public const string PaymentStatusApproved = "Approved";
+        public const string PaymentStatusPending = "Kontrolleras";
+        public const string PaymentStatusApproved = "Godkänd";
         public const string PaymentStatusDelayedPayment = "ApprovedForDelayedPayment";
-        public const string PaymentStatusRejected = "Rejected";
+        public const string PaymentStatusRejected = "Avvisas";
 
 
         public static double GetPriceBasedOnQuantity(double quantity, double price)

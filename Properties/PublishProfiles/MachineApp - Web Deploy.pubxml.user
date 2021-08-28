@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA5tnkeH3UhkK+7w9JgaRsKQAAAAACAAAAAAAQZgAAAAEAACAAAADreVrAmsdWkXPN5MwlstSfcMdnJjK11PymLN8cre+vCgAAAAAOgAAAAAIAACAAAAATuu9vJ8xUXQMZwcvxHNna0JMIw/7vM+5psqB7s192G4AAAAA0Fac3DFxrdqhEACiO2/5zIZcWTbrMjCINv0YNw6LY6QHFRwaqxEfssTGi+kJlGuN9UEVA9LB5dnhENCGF9tsM1t1c1ST65yzBpio5ZMKOib8KHOZCmMKggCPoZTSifhZOcfwBEQ1upcbtR9kBxR3LwXiOxkXEjGybn/J7hYTQd0AAAADZe7RZ87sZ94gTS41HAksbWiPWS9rAZBVdIK65UHh35L31/DS20YFMtQ+jhPUdcC5GhVA4fnoSxnorUVIBxy8/</EncryptedPassword>
+    <History>True|2021-08-28T13:00:52.8920104Z;True|2021-08-22T15:52:53.3845786+02:00;True|2021-08-21T22:12:25.5741226+02:00;True|2021-08-21T16:39:29.4063421+02:00;</History>
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="DefaultConnection">
+      <Value>Data Source=tcp:machineappdbserver.database.windows.net,1433%3bInitial Catalog=MachineApp_db%3bUser Id=rami%40machineappdbserver%3bPassword=%2a%2aStarramon88%2a%2a</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+</Project>

@@ -107,6 +107,10 @@
               "target": "Package",
               "version": "[5.0.2, )"
             },
+            "Moment.js": {
+              "target": "Package",
+              "version": "[2.29.1, )"
+            },
             "Stripe.net": {
               "target": "Package",
               "version": "[39.58.0, )"

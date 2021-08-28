@@ -28,14 +28,19 @@ namespace MachineApp.Areas.Customer.Controllers
         }
 
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index(int productPage = 1)
         {
+            
+
             HomeVM homeVM = new HomeVM()
             {
                 Products = _unitOfWork.Product.GetAll(includeProperties: "Category,ApplicationType"),
-                Categories = _unitOfWork.Category.GetAll()
+                Categories = await _unitOfWork.Category.GetAllAsync()
                 
             };
+            
+
+
             var claimsIdentity = (ClaimsIdentity)User.Identity;
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
             if (claim != null)

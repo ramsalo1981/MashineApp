@@ -1,4 +1,5 @@
 ﻿using MachineApp.DataAccess.Data;
+using MachineApp.Models;
 using MachineApp.Utility;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -23,6 +24,7 @@ namespace MachineApp.Areas.Admin.Controllers
         {
             return View();
         }
+       
 
         #region API CALLS
 
@@ -63,6 +65,35 @@ namespace MachineApp.Areas.Admin.Controllers
             return Json(new { success = true, message = "Operationen lyckades." });
         }
 
+        //public async Task<IActionResult> InactiveDelete(string id)
+        //{
+        //    if (id == null || id.Trim().Length == 0)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    var userFromDb = await _db.ApplicationUsers.FindAsync(id);
+        //    if (userFromDb == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return View(userFromDb);
+        //}
+
+        ////Post Delete
+        //[HttpPost, ActionName("InactiveDelete")]
+        //[ValidateAntiForgeryToken]
+        //public IActionResult InActiveDeletePOST(string id)
+        //{
+
+
+        //    ApplicationUser userFromDb = _db.ApplicationUsers.Where(u => u.Id == id).FirstOrDefault();
+        //    userFromDb.LockoutEnd = DateTime.Now.AddYears(1000);
+        //    _db.Users.Remove(userFromDb);
+        //    _db.SaveChanges();
+        //    return RedirectToAction(nameof(Index));
+        //}
         #endregion
     }
 }

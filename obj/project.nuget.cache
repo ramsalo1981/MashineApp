@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "rRI7WfiNkYIzSd0/FjCEMVHUzapy5HfHxuLzESNybM2yR0hu5bGmwEhf/SByMBhQpgzb9GHdk0eW83WCF58UrA==",
+  "dgSpecHash": "6Acyrl6kqFnoeJ5WrHys23gGFoz3pcw3CwJRzFqyCvJ8BzQXAiDzOw1b3EA+GcMChxVDB1oxrCaLinHRFd6s4Q==",
   "success": true,
   "projectFilePath": "C:\\Users\\ramis\\Desktop\\LastProjectmvc\\MachineApp\\MachineApp\\MachineApp.csproj",
   "expectedPackageFiles": [
@@ -105,6 +105,7 @@
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.win32.primitives\\4.3.0\\microsoft.win32.primitives.4.3.0.nupkg.sha512",
     "C:\\Users\\ramis\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",
     "C:\\Users\\ramis\\.nuget\\packages\\microsoft.win32.systemevents\\5.0.0\\microsoft.win32.systemevents.5.0.0.nupkg.sha512",
+    "C:\\Users\\ramis\\.nuget\\packages\\moment.js\\2.29.1\\moment.js.2.29.1.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\netstandard.library\\1.6.1\\netstandard.library.1.6.1.nupkg.sha512",
     "C:\\Users\\ramis\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\newtonsoft.json.bson\\1.0.1\\newtonsoft.json.bson.1.0.1.nupkg.sha512",

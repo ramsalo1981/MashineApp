@@ -41,6 +41,7 @@ namespace MachineApp.Areas.Customer.Controllers
         {
             var claimsIdentity = (ClaimsIdentity)User.Identity;
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+
             ShoppingCartVM = new ShoppingCartVM()
             {
                 OrderHeader = new Models.OrderHeader(),
@@ -63,7 +64,7 @@ namespace MachineApp.Areas.Customer.Controllers
 
 
             return View(ShoppingCartVM);
-            
+
         }
 
         [HttpPost]
@@ -193,7 +194,7 @@ namespace MachineApp.Areas.Customer.Controllers
                 _unitOfWork.OrderHeader.Add(ShoppingCartVM.OrderHeader);
                 _unitOfWork.Save();
 
-                List<OrderDetails> orderDetailsList = new List<OrderDetails>();
+                //List<OrderDetails> orderDetailsList = new List<OrderDetails>();
                 foreach (var item in ShoppingCartVM.ListCart)
                 {
                     item.Price = SD.GetPriceBasedOnQuantity(item.Count, item.Product.Price);
@@ -235,13 +236,13 @@ namespace MachineApp.Areas.Customer.Controllers
                     var service = new ChargeService();
                     Charge charge = service.Create(options);
 
-                    if (charge.BalanceTransactionId == null)
+                    if (charge.Id == null)
                     {
                         ShoppingCartVM.OrderHeader.PaymentStatus = SD.PaymentStatusRejected;
                     }
                     else
                     {
-                        ShoppingCartVM.OrderHeader.TransactionId = charge.BalanceTransactionId;
+                        ShoppingCartVM.OrderHeader.TransactionId = charge.Id;
                     }
                     if (charge.Status.ToLower() == "succeeded")
                     {
@@ -258,7 +259,7 @@ namespace MachineApp.Areas.Customer.Controllers
         }
         public IActionResult OrderConfirmation(int id)
         {
-            //OrderHeader orderHeader = _unitOfWork.OrderHeader.GetFirstOrDefault(u => u.Id == id);
+            OrderHeader orderHeader = _unitOfWork.OrderHeader.GetFirstOrDefault(u => u.Id == id);
             //TwilioClient.Init(_twilioOptions.AccountSid, _twilioOptions.AuthToken);
             //try
             //{

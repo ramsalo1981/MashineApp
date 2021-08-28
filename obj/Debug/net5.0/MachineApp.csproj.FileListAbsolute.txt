@@ -501,3 +501,8 @@ C:\Users\ramis\Desktop\LastProjectmvc\MachineApp\MachineApp\obj\Debug\net5.0\Raz
 C:\Users\ramis\Desktop\LastProjectmvc\MachineApp\MachineApp\bin\Debug\net5.0\Stripe.net.dll
 C:\Users\ramis\Desktop\LastProjectmvc\MachineApp\MachineApp\obj\Debug\net5.0\Razor\Areas\Customer\Views\Cart\OrderConfirmation.cshtml.g.cs
 C:\Users\ramis\Desktop\LastProjectmvc\MachineApp\MachineApp\obj\Debug\net5.0\Razor\Areas\Admin\Views\Order\Index.cshtml.g.cs
+C:\Users\ramis\Desktop\LastProjectmvc\MachineApp\MachineApp\obj\Debug\net5.0\Razor\Areas\Admin\Views\Order\Details.cshtml.g.cs
+C:\Users\ramis\Desktop\LastProjectmvc\MachineApp\MachineApp\obj\Debug\net5.0\Razor\Areas\Identity\Pages\Account\Manage\_ViewStart.cshtml.g.cs
+C:\Users\ramis\Desktop\LastProjectmvc\MachineApp\MachineApp\obj\Debug\net5.0\Razor\Views\Shared\Components\UserName\Default.cshtml.g.cs
+C:\Users\ramis\Desktop\LastProjectmvc\MachineApp\MachineApp\obj\Debug\net5.0\Razor\Views\Shared\_Notifications.cshtml.g.cs
+C:\Users\ramis\Desktop\LastProjectmvc\MachineApp\MachineApp\obj\Debug\net5.0\Razor\Areas\Customer\Views\Contact\Index.cshtml.g.cs
